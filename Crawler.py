@@ -4,8 +4,8 @@ import re
 import xlwt
 
 
-urlList=['https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=%E8%82%BA%E7%82%8E&oq=%25E6%25AD%25A6%25E6%25B1%2589%25E7%259C%2581&rsv_pq=c33d15c9000ac199&rsv_t=05eb4OY8uiVXgqqdCn5Yd0NOOyMPKx6ULxgsIQcE3GJeKTZfIBho200eSUA&rqlang=cn&rsv_dl=tb&rsv_enter=1&rsv_btype=t&inputT=6985&gpc=stf%3D1575475200%2C1579708799%7Cstftype%3D2&tfflag=1',
-         'https://www.baidu.com/s?wd=%E8%82%BA%E7%82%8E&pn=20&oq=%E8%82%BA%E7%82%8E&ie=utf-8&usm=2&rsv_pq=95057cc600002864&rsv_t=1f7elVTGW8zcWyq9fbeeRg9WktBNBfpk9vXovqr5%2BDbXL8uMpDcJoxq8ZWo&gpc=stf%3D1575475200%2C1579708799%7Cstftype%3D2&tfflag=1']
+baseUrlList=[
+         'https://www.baidu.com/s?wd=%E8%82%BA%E7%82%8E&pn=&oq=%E8%82%BA%E7%82%8E&ie=utf-8&usm=2&rsv_pq=95057cc600002864&rsv_t=1f7elVTGW8zcWyq9fbeeRg9WktBNBfpk9vXovqr5%2BDbXL8uMpDcJoxq8ZWo&gpc=stf%3D1575475200%2C1579708799%7Cstftype%3D2&tfflag=1']
 findTitle=re.compile(r'target="_blank">(.*?)</a>')
 findLink=re.compile(r'href="(.*?)"')
 findSrc1=re.compile(r'<span class="nor-src-icon-v vicon-2"></span>(.*?)</a>')
@@ -13,6 +13,8 @@ findSrc2=re.compile(r'<div.*</div>(.*?)</a>')
 findSrc3=re.compile(r'<a class="c-showurl c-color-gray" target="_blank" href=".*" style=".*">(.*?)</a>')
 findTime=re.compile(r'<span class=.*>(.*?)\xa0</span>')
 
+dataList=[]
+workbook=xlwt.Workbook(encoding='utf-8')
 #得到指定url的网页源码、内容
 def askUrl(url):
     #避免爬虫被认出非真人，告诉浏览器我们需要什么东西，模拟浏览器头部信息
@@ -27,12 +29,13 @@ def askUrl(url):
         print("error!")
         #返回源码
     return html
-def getData():
+def getData(baseUrl):
     isMatch=False
-    srclist=['网','报']
-    dataList=[]
-    for i in range(0,len(urlList)):
-        url=urlList[i]
+    srclist=['网','报','新闻','播']
+
+    for i in range(0,10):
+        page=str(10*i)
+        url=baseUrl.replace('pn=','pn='+page)
         html=askUrl(url)
         soup=BeautifulSoup(html,"html.parser")
         for item in soup.find_all('div', class_="result c-container new-pmd"):    #找到百度搜索结果的标题
@@ -57,9 +60,24 @@ def getData():
                     data.append(title)
                     data.append(link[0])
                     data.append(time[0])
-                    dataList.append(data)
-                    break
+                    if data not in dataList:
+                        dataList.append(data)
 
     return dataList
+
+def savaData(dataList):
+        #创建workbook对象
+    wordsheet=workbook.add_sheet('新冠疫情相关新闻',cell_overwrite_ok=True)      #创建工作表
+    col=('来源','新闻标题','新闻链接','新闻发布时间')
+    for i in range(0,4):
+        wordsheet.write(0,i,col[i])             #第一个参数为行，第二个为列，第三个为写入的数据
+    for i in range(0,len(dataList)):
+        data=dataList[i]
+        for j in range(0,4):
+            wordsheet.write(i+1,j,data[j])
+    workbook.save('新冠疫情新闻总表.xls')
+
+def deleteWorkBook(workSheet):
+    workbook.remove()
 if __name__=='__main__':
-    print(askUrl('https://www.baidu.com/s?wd=%E8%82%BA%E7%82%8E&pn=20&oq=%E8%82%BA%E7%82%8E&ie=utf-8&usm=2&rsv_pq=95057cc600002864&rsv_t=1f7elVTGW8zcWyq9fbeeRg9WktBNBfpk9vXovqr5%2BDbXL8uMpDcJoxq8ZWo&gpc=stf%3D1575475200%2C1579708799%7Cstftype%3D2&tfflag=1'))
+    savaData(getData(baseUrlList[0]))
