@@ -8,6 +8,7 @@ lineCount = 1
 baseUrlList = [
     'https://www.baidu.com/s?wd=%E8%82%BA%E7%82%8E&pn=0&oq=%E8%82%BA%E7%82%8E&ie=utf-8&usm=2&rsv_pq=95057cc600002864&rsv_t=1f7elVTGW8zcWyq9fbeeRg9WktBNBfpk9vXovqr5%2BDbXL8uMpDcJoxq8ZWo&gpc=stf%3D1575475200%2C1579708799%7Cstftype%3D2&tfflag=1',
     'https://www.baidu.com/s?wd=%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92&pn=0&oq=%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92&ie=utf-8&rsv_pq=b211c8a700014499&rsv_t=2b6bmZTLo6GCdF%2B%2FnMEaW0mwCEI3WtAsm2b4WKe62T91thIigeu1e%2FED1Y4&gpc=stf%3D1575475200%2C1579708799%7Cstftype%3D2&tfflag=1',
+    'https://www.baidu.com/s?wd=%E5%8F%91%E7%83%AD%E7%97%85%E4%BE%8B&pn=0&oq=%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92&ie=utf-8&rsv_pq=b211c8a700014499&rsv_t=2b6bmZTLo6GCdF%2B%2FnMEaW0mwCEI3WtAsm2b4WKe62T91thIigeu1e%2FED1Y4&gpc=stf%3D1575475200%2C1579708799|stftype%3D2&tfflag=1',
 ]
 findTitle = re.compile(r'target="_blank">(.*?)</a>')
 findLink = re.compile(r'href="(.*?)"')
