@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import re
 import xlwt
 from urllib.parse import unquote, quote
-
+import time
 keywordList = ['肺炎', '冠状病毒', '新冠', '不明传染', '疫情', '封城', '李文亮', '吹哨', '抗疫', '武汉领导']
 
 baseUrlList1 = [
@@ -80,7 +80,6 @@ baseUrlList4 = [
     'https://www.baidu.com/s?wd=%E5%B0%81%E5%9F%8E&pn=0&oq=%E5%B0%81%E5%9F%8E&ie=utf-8&rsv_pq=88a29ad000009e8a&rsv_t=70401nkEEm55acjeiktius1lKUumUK6DeLKwuFJZZrvW6rYVwQaV9jJjx8w&gpc=stf%3D1583769600%2C1592841599%7Cstftype%3D2&tfflag=1',
 
 ]
-baseUrlListTotal = [baseUrlList1, baseUrlList2, baseUrlList3, baseUrlList4]
 findTitle = re.compile(r'target="_blank">(.*?)</a>')
 findLink = re.compile(r'href="(.*?)"')
 findSrc1 = re.compile(r'<span class="nor-src-icon-v vicon-2"></span>(.*?)</a>')
@@ -100,6 +99,7 @@ def askUrl(url):
     url = quote(url, safe=string.printable)
     # request是一个库，Request是一个封装对象
     request = urllib.request.Request(url, headers=head)
+    time.sleep(1)
     html = ""
     try:
         response = urllib.request.urlopen(request)
@@ -112,7 +112,7 @@ def askUrl(url):
 dataList=[]
 def getData(baseUrl):
 
-    srclist = ['网', '报', '新闻', '播', '观察', 'news', '社']
+    srclist = ['网', '报', '新闻', '播', '观察', 'news', '社', '在线']
 
     for i in range(0, 40):
         page = str(10 * i)
