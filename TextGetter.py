@@ -21,12 +21,13 @@ def writeText(i, sheet):
     for i in range(1, nrows):
         name = sheet.cell(i, 1).value
         url = sheet.cell(i, 2).value
-        url = sheet.cell(i, 2).value
         text = getText(url)
         if text == None:
+            print('跳过无效url')
             continue
         toWriteSheet.write(row, 0, name)
         toWriteSheet.write(row, 1, text)
+        print('第'+str(row)+'行已被读入')
         row += 1
 
 
@@ -42,7 +43,6 @@ def getText(url):
     text = ''
     for i in range(0, len(contents)):
         text += contents[i].text
-    print(text)
     return text
 
 

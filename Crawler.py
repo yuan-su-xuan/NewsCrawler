@@ -106,7 +106,6 @@ def askUrl(url):
     try:
         response = urllib.request.urlopen(request)
         html = response.read().decode('utf-8')
-        time.sleep(1)
     except:
         html=None
         print("error!")
