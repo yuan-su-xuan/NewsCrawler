@@ -108,6 +108,7 @@ def askUrl(url):
         html = response.read().decode('utf-8')
         time.sleep(1)
     except:
+        html=None
         print("error!")
         # 返回源码
     return html
