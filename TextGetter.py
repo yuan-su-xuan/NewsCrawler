@@ -1,7 +1,7 @@
 import xlrd
 import xlwt
 from bs4 import BeautifulSoup
-
+import time
 import Crawler
 
 workbook = xlwt.Workbook('新闻内容.xls')
@@ -12,7 +12,8 @@ def getNews(xlsPath):
     for i in range(0, 4):
         sheet = readbook.sheet_by_index(i)
         writeText(i, sheet)
-    workbook.save('新闻内容')
+        workbook.save('新闻内容')
+        time.sleep(60)
 
 def writeText(i, sheet):
     toWriteSheet = workbook.add_sheet("第" + str(i) + "阶段", cell_overwrite_ok=True)
