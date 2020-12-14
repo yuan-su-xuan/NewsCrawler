@@ -3,6 +3,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 import re
 import xlwt
+import xlrd
 from urllib.parse import unquote, quote
 import time
 keywordList = ['肺炎', '冠状病毒', '新冠', '不明传染', '疫情', '封城', '李文亮', '吹哨', '抗疫', '武汉领导']
@@ -21,6 +22,8 @@ baseUrlList1 = [
 
 ]
 baseUrlList2 = [
+    #抗疫
+    'https://www.baidu.com/s?wd=%E6%8A%97%E7%96%AB&pn=0&oq=&ie=utf-8&rsv_pq=a0f0ed4e000057a1&rsv_t=bf5cI%2FkJ5NUZLOoyArEF0bIh7aNy%2FWMQUN6HKkdlipPNEm8Vr%2FWvh8ToZts&gpc=stf%3D1579708800%2C1581091199%7Cstftype%3D2&tfflag=1',
     #不明传染
     'https://www.baidu.com/s?wd=%E4%B8%8D%E6%98%8E%E4%BC%A0%E6%9F%93&pn=0&oq=%E4%B8%8D%E6%98%8E%E4%BC%A0%E6%9F%93&ie=utf-8&rsv_pq=a0f0ed4e000057a1&rsv_t=bf5cI%2FkJ5NUZLOoyArEF0bIh7aNy%2FWMQUN6HKkdlipPNEm8Vr%2FWvh8ToZts&gpc=stf%3D1579708800%2C1581091199%7Cstftype%3D2&tfflag=1',
     #肺炎
@@ -33,8 +36,6 @@ baseUrlList2 = [
     'https://www.baidu.com/s?wd=%E6%9D%8E%E6%96%87%E4%BA%AE&pn=0&oq=&ie=utf-8&rsv_pq=a0f0ed4e000057a1&rsv_t=bf5cI%2FkJ5NUZLOoyArEF0bIh7aNy%2FWMQUN6HKkdlipPNEm8Vr%2FWvh8ToZts&gpc=stf%3D1579708800%2C1581091199%7Cstftype%3D2&tfflag=1',
     #吹哨
     'https://www.baidu.com/s?wd=%E5%90%B9%E5%93%A8&pn=0&oq=&ie=utf-8&rsv_pq=a0f0ed4e000057a1&rsv_t=bf5cI%2FkJ5NUZLOoyArEF0bIh7aNy%2FWMQUN6HKkdlipPNEm8Vr%2FWvh8ToZts&gpc=stf%3D1579708800%2C1581091199%7Cstftype%3D2&tfflag=1',
-    #抗疫
-    'https://www.baidu.com/s?wd=%E6%8A%97%E7%96%AB&pn=0&oq=&ie=utf-8&rsv_pq=a0f0ed4e000057a1&rsv_t=bf5cI%2FkJ5NUZLOoyArEF0bIh7aNy%2FWMQUN6HKkdlipPNEm8Vr%2FWvh8ToZts&gpc=stf%3D1579708800%2C1581091199%7Cstftype%3D2&tfflag=1',
     #‘封城’
     'https://www.baidu.com/s?wd=%E5%B0%81%E5%9F%8E&pn=0&oq=%E5%B0%81%E5%9F%8E&ie=utf-8&rsv_pq=dedfb29200006ca9&rsv_t=10beIAoXRImN3RvxAB91L7BX%2FNOa0V6ctuTd5mPX0EFBJlWYWOuIOm02unQ&gpc=stf%3D1579708800%2C1581263999%7Cstftype%3D2&tfflag=1',
 
@@ -88,7 +89,8 @@ findSrc3 = re.compile(r'tar"><a class="c-showurl c-color-gray" href=".*" style="
 findTime = re.compile(r'<span class=.*>(.*?)\xa0</span>')
 
 
-workbook = xlwt.Workbook(encoding='utf-8')
+
+workbook=xlwt.Workbook('第四阶段.xls')
 lineCount = 1
 
 
@@ -99,11 +101,12 @@ def askUrl(url):
     url = quote(url, safe=string.printable)
     # request是一个库，Request是一个封装对象
     request = urllib.request.Request(url, headers=head)
-    time.sleep(1)
+
     html = ""
     try:
         response = urllib.request.urlopen(request)
         html = response.read().decode('utf-8')
+        time.sleep(1)
     except:
         print("error!")
         # 返回源码
@@ -176,16 +179,17 @@ def savaData(dataList, sheetName):
         print(sheetName + '写入了第', lineCount, '条数据')
         lineCount = lineCount + 1
 
-    workbook.save('新冠疫情新闻总表.xls')
+    workbook.save('第四阶段.xls')
 
 
 if __name__ == '__main__':
-    dataList=[]
+    '''dataList=[]
     for i in range(0,len(baseUrlList1)):
         getData(baseUrlList1[i])
     savaData(dataList,'第一阶段')
     dataList=[]
     lineCount=1
+    time.sleep(3)
     for i in range(0, len(baseUrlList2)):
         getData(baseUrlList2[i])
     savaData(dataList, '第二阶段')
@@ -196,6 +200,7 @@ if __name__ == '__main__':
     savaData(dataList, '第三阶段')
     dataList=[]
     lineCount=1
+    '''
     for i in range(0, len(baseUrlList4)):
         getData(baseUrlList4[i])
     savaData(dataList, '第四阶段')
