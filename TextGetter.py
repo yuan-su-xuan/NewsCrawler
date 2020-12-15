@@ -3,8 +3,9 @@ import xlwt
 from bs4 import BeautifulSoup
 import time
 import Crawler
-
-workbook = xlwt.Workbook('新闻内容.xls')
+import openpyxl
+from openpyxl import Workbook
+workbook = Workbook()
 
 
 def getNews(xlsPath):
@@ -12,24 +13,32 @@ def getNews(xlsPath):
     for i in range(0, 4):
         sheet = readbook.sheet_by_index(i)
         writeText(i, sheet)
-        workbook.save('新闻内容')
+        workbook.save('新闻内容.xlsx')
         time.sleep(60)
 
 def writeText(i, sheet):
-    toWriteSheet = workbook.add_sheet("第" + str(i) + "阶段", cell_overwrite_ok=True)
+    toWriteSheet = workbook.create_sheet("第" + str(i) + "阶段")
     nrows = sheet.nrows
     row = 0
     for i in range(1, nrows):
-        name = sheet.cell(i, 1).value
-        url = sheet.cell(i, 2).value
-        text = getText(url)
-        if text == None:
+        src=sheet.cell(i,0).value
+
+        if 'chinairn' in src or '凤凰' in src:
             print('跳过无效url')
             continue
-        toWriteSheet.write(row, 0, name)
-        toWriteSheet.write(row, 1, text)
+        name = sheet.cell(i, 1).value
+        url = sheet.cell(i, 2).value
+        newsTime = sheet.cell(i,3).value
+        print('获得表中第'+str(i)+'行')
+        text = getText(url)
+        if text is None:
+            print('跳过无效url')
+            continue
+        arow=[src,name,text,newsTime]
+        toWriteSheet.append(arow)
         print('第'+str(row)+'行已被读入')
         row += 1
+        workbook.save('新闻内容.xlsx')
 
 
 
@@ -48,4 +57,5 @@ def getText(url):
 
 
 if __name__ == '__main__':
+    workbook.save('新闻内容.xlsx')
     getNews('E:\python文件\MyCrawler\新冠疫情新闻.xls')
