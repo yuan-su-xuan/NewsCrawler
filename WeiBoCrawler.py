@@ -95,8 +95,8 @@ lineCount = 1
 # 得到指定url的网页源码、内容
 def askUrl(url):
     # 避免爬虫被认出非真人，告诉浏览器我们需要什么东西，模拟浏览器头部信息
-    head = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0",
-            "Cookie": "SINAGLOBAL=7301884145198.878.1574603334611; ULV=1592575882910:11:1:1:2339654627762.97.1592575882907:1586959239798; UOR=,,login.sina.com.cn; SCF=Apz6fSHB1thzITfS8Nak59eNU6qB_SFo-EciuEFPTD-rW6M6ulF2RGVBiewrrjKN5qGgkNMdSKlLHdmDXtAQNfc.; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhNX3Kq-cB_kdnY9aN0MY0Z5NHD95QfSK-NehzNSh-NWs4DqcjMi--NiK.Xi-2Ri--ciKnRi-zNSK-fS05ES0BfS7tt; webim_unReadCount=%7B%22time%22%3A1608714149113%2C%22dm_pub_total%22%3A0%2C%22chat_group_client%22%3A0%2C%22chat_group_notice%22%3A0%2C%22allcountNum%22%3A35%2C%22msgbox%22%3A0%7D; _s_tentry=news.china.com.cn; Apache=2339654627762.97.1592575882907; login_sid_t=7430470d27f35d1e15bc6525dd092248; cross_origin_proto=SSL; SUB=_2A25y53o8DeRhGeNL7lUR8inIzjuIHXVuKAZ0rDV8PUJbkNANLWTXkW1NSO5r6KEr67l_scNdZcEBYeFF-M3N5sdH; appkey=; SSOLoginState=1608714860; WBStorage=8daec78e6a891122|undefined",
+    head = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0",
+            "Cookie": 'SCF=Apz6fSHB1thzITfS8Nak59eNU6qB_SFo-EciuEFPTD-ryXQSZPfv3LZNxdwKz2oTWF0k-uJZFtbqGkM3IBkMhiM.; SUB=_2A25y53o8DeRhGeNL7lUR8inIzjuIHXVuKAZ0rDV6PUJbktANLVLtkW1NSO5r6BczU-QqD6pt0UKuGpmoEDVpxphP; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WhNX3Kq-cB_kdnY9aN0MY0Z5NHD95QfSK-NehzNSh-NWs4DqcjMi--NiK.Xi-2Ri--ciKnRi-zNSK-fS05ES0BfS7tt; _T_WM=ef6273c0266369569ff1c11e3c15107b; SSOLoginState=1608714860',
             'Host': 'weibo.cn',
             'Connection': 'keep-alive'}
 
@@ -202,7 +202,7 @@ def getHotComments(hotUrl):
 
 if __name__ == '__main__':
     dataList = []
-    for i in range(0, len(baseUrlList2)):
-        getData(baseUrlList2[i])
-    savaData(dataList, '第二阶段')
+    for i in range(0, len(baseUrlList3)):
+        getData(baseUrlList3[i])
+    savaData(dataList, '第三阶段')
 
