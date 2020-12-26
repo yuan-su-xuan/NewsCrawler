@@ -206,14 +206,17 @@ if __name__ == '__main__':
         getData(baseUrlList1[i])
     savaData(dataList, '第一阶段')
     lineCount = 1
+    dataList.clear()
     for i in range(0, len(baseUrlList2)):
         getData(baseUrlList2[i])
     savaData(dataList, '第二阶段')
     lineCount = 1
+    dataList.clear()
     for i in range(0, len(baseUrlList3)):
         getData(baseUrlList3[i])
     savaData(dataList, '第三阶段')
     lineCount = 1
+    dataList.clear()
     for i in range(0, len(baseUrlList4)):
         getData(baseUrlList4[i])
     savaData(dataList, '第四阶段')
