@@ -7,41 +7,39 @@ from urllib.parse import unquote, quote
 import time
 import random
 
-keywordList = ['肺炎', '冠状病毒', '新冠', '不明传染', '疫情', '封城', '李文亮', '吹哨', '抗疫', '武汉领导']
-
 baseUrlList1 = [
     # 由于第一阶段认识不足以及阶段性大事件未发生，仅有几个关键词有效
     # ‘肺炎’
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E8%82%BA%E7%82%8E&advancedfilter=1&starttime=20191208&endtime=20200122&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E8%82%BA%E7%82%8E&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1',
     # ‘不明传染’
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E4%B8%8D%E6%98%8E%E4%BC%A0%E6%9F%93&advancedfilter=1&starttime=20191208&endtime=20200122&sort=ho&hasv=1t&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E4%B8%8D%E6%98%8E%E4%BC%A0%E6%9F%93&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=ho&hasv=1t&page=1',
     # ‘冠状病毒’
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92&advancedfilter=1&starttime=20191208&endtime=20200122&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1',
     # ‘发热’
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%8F%91%E7%83%AD&advancedfilter=1&starttime=20191208&endtime=20200122&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%8F%91%E7%83%AD&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1',
 
 ]
 baseUrlList2 = [
     # 抗疫
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%8A%97%E7%96%AB&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%8A%97%E7%96%AB&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 不明传染
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E4%B8%8D%E6%98%8E%E4%BC%A0%E6%9F%93&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E4%B8%8D%E6%98%8E%E4%BC%A0%E6%9F%93&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 肺炎
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E8%82%BA%E7%82%8E&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E8%82%BA%E7%82%8E&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 新冠
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B0%E5%86%A0&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B0%E5%86%A0&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 疫情
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E7%96%AB%E6%83%85&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E7%96%AB%E6%83%85&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 李文亮
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%9D%8E%E6%96%87%E4%BA%AE&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%9D%8E%E6%96%87%E4%BA%AE&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 吹哨
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%90%B9%E5%93%A8&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%90%B9%E5%93%A8&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 封城
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%B0%81%E5%9F%8E&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%B0%81%E5%9F%8E&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     # 武汉
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%AD%A6%E6%B1%89&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%AD%A6%E6%B1%89&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
     #方舱医院
-    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B9%E8%88%B1%E5%8C%BB%E9%99%A2&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200206&sort=hot&hasv=1&page=1',
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B9%E8%88%B1%E5%8C%BB%E9%99%A2&advancedfilter=1&hasori=1&starttime=20200123&endtime=20200124&sort=hot&hasv=1&page=1',
 ]
 baseUrlList3 = [
     # 抗疫
@@ -174,7 +172,7 @@ def savaData(dataList, sheetName):
         print(sheetName + '写入了第', lineCount, '条数据')
         lineCount = lineCount + 1
 
-    workbook.save('第二阶段.xls')
+    workbook.save('微博新闻汇总.xls')
 
 def getComment(commentHref):
     commentHtml=askUrl(commentHref)
@@ -204,7 +202,18 @@ def getHotComments(hotUrl):
 
 if __name__ == '__main__':
     dataList = []
+    for i in range(0, len(baseUrlList1)):
+        getData(baseUrlList1[i])
+    savaData(dataList, '第一阶段')
+    lineCount = 1
     for i in range(0, len(baseUrlList2)):
         getData(baseUrlList2[i])
     savaData(dataList, '第二阶段')
-
+    lineCount = 1
+    for i in range(0, len(baseUrlList3)):
+        getData(baseUrlList3[i])
+    savaData(dataList, '第三阶段')
+    lineCount = 1
+    for i in range(0, len(baseUrlList4)):
+        getData(baseUrlList4[i])
+    savaData(dataList, '第四阶段')
