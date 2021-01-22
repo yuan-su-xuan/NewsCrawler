@@ -96,7 +96,7 @@ lineCount = 1
 
 # 得到指定url的网页源码、内容
 def askUrl(url):
-    # 避免爬虫被认出非真人，告诉浏览器我们需要什么东西，模拟浏览器头部信息
+    # 避免爬虫被认出非真人，告诉浏览器需要什么东西，模拟浏览器头部信息
     head = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0"}
     url = quote(url, safe=string.printable)
     # request是一个库，Request是一个封装对象
@@ -147,6 +147,7 @@ def getData(baseUrl):
                     title = re.findall(findTitle, item)[0].replace('<em>', '').replace('</em>', '')
                     link = re.findall(findLink, item)
                     time = re.findall(findTime, item)
+                    #每一条数据包括新闻来源网站、标题、链接、时间
                     data.append(src)
                     data.append(title)
                     data.append(link[0])
@@ -158,6 +159,7 @@ def getData(baseUrl):
                         if title ==dataList[i][1]:
                             isMatch=False
                             break
+                    #判断是否为重复数据
                     if isMatch:
                         dataList.append(data)
                         print('datalist中增加了第'+str(len(dataList))+'条数据')
@@ -166,6 +168,7 @@ def getData(baseUrl):
 
 
 def savaData(dataList, sheetName):
+    #将数据存储为xls文件
     # 创建workbook对象
     global lineCount
     wordsheet = workbook.add_sheet(sheetName, cell_overwrite_ok=True)  # 创建工作表
@@ -183,6 +186,7 @@ def savaData(dataList, sheetName):
 
 
 if __name__ == '__main__':
+    #分别爬取并存储不同时间阶段的数据
     '''dataList=[]
     for i in range(0,len(baseUrlList1)):
         getData(baseUrlList1[i])

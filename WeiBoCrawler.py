@@ -115,20 +115,21 @@ def askUrl(url):
         # 返回源码
     return html
 
-
+#用于临时存储每个阶段爬取的数据
 dataList = []
 
 
 def getData(baseUrl):
     srclist = ['网', '报', '新闻', '播', '观察', '社', '在线', '观', '中国', '法', '共青', '青年', '中央', 'CCTV', '检察', '观察']
-
+    #爬取前100页的数据
     for i in range(0, 100):
         url = baseUrl.replace('page=1', 'page=' + str(i + 1))
         html = askUrl(url)
         if html == None:
             break
         soup = BeautifulSoup(html, "html.parser")
-        for item in soup.find_all('div', {'class': 'c', 'id': findId}):  # 找到一条微博
+        for item in soup.find_all('div', {'class': 'c', 'id': findId}):
+            # 找到一条微博并抓取信息
             print('进入了一个段里')
             data = []  # 保存一个标题的信息
             name = item.find_all('a', {'class': 'nk'})[0]
@@ -147,6 +148,7 @@ def getData(baseUrl):
                         break
                     commentHref = commentHrefTotal['href']
                     comments = getComment(commentHref)
+                    #每一条数据中包含新闻来源、时间、内容、数条评论
                     data.append(name)
                     data.append(time)
                     data.append(p)
@@ -159,7 +161,7 @@ def getData(baseUrl):
 
 
 def savaData(dataList, sheetName):
-    # 创建workbook对象
+    # 创建workbook对象并存储数据
     global lineCount
     wordsheet = workbook.add_sheet(sheetName, cell_overwrite_ok=True)  # 创建工作表
     col = ('来源', '时间', '内容', '评论')
