@@ -22,4 +22,5 @@ def getComments(starttime,endtime,workbookName):
     WeiBoCrawler.savaData(WeiBoCrawler.dataList,workbookName)
 if __name__ == '__main__':
     #输入时间格式为 20200101,20210121,工作表名字
+    #数据文件存储在当前目录下
     getComments(20201225,20210121,'工作表名字')
