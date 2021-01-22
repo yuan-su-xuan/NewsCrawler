@@ -83,6 +83,34 @@ baseUrlList4 = [
     #方舱医院
     'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B9%E8%88%B1%E5%8C%BB%E9%99%A2&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
 ]
+baseUrlList5 = [
+    # ‘肺炎’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E8%82%BA%E7%82%8E&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘冠状病毒’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%86%A0%E7%8A%B6%E7%97%85%E6%AF%92&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘新冠’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B0%E5%86%A0&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘疫情’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E7%96%AB%E6%83%85&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘抗疫’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%8A%97%E7%96%AB&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘李文亮’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%9D%8E%E6%96%87%E4%BA%AE&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘封城’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%B0%81%E5%9F%8E&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    #复工
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%A4%8D%E5%B7%A5&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    #方舱医院
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%96%B9%E8%88%B1%E5%8C%BB%E9%99%A2&advancedfilter=1&hasori=1&starttime=20200310&endtime=20200321&sort=hot&hasv=1&page=1',
+    # ‘发热’
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E5%8F%91%E7%83%AD&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1',
+    #隔离
+    "https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E9%9A%94%E7%A6%BB&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1",
+    #确诊
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E7%A1%AE%E8%AF%8A&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1',
+    #核酸
+    'https://weibo.cn/search/mblog?hideSearchFrame=&keyword=%E6%A0%B8%E9%85%B8&advancedfilter=1&hasori=1&starttime=20191208&endtime=20200121&sort=hot&hasv=1&page=1',
+]
 findId = re.compile(r'M_.*')
 findSrc = re.compile(r'<a.*>(.*?)</a>')
 findHref=re.compile(r'<a class="cc" href="(.*?)">')
@@ -122,7 +150,7 @@ dataList = []
 def getData(baseUrl):
     srclist = ['网', '报', '新闻', '播', '观察', '社', '在线', '观', '中国', '法', '共青', '青年', '中央', 'CCTV', '检察', '观察']
     #爬取前100页的数据
-    for i in range(0, 100):
+    for i in range(0, 1):
         url = baseUrl.replace('page=1', 'page=' + str(i + 1))
         html = askUrl(url)
         if html == None:
@@ -174,7 +202,7 @@ def savaData(dataList, sheetName):
         print(sheetName + '写入了第', lineCount, '条数据')
         lineCount = lineCount + 1
 
-    workbook.save('微博新闻汇总.xls')
+    workbook.save(sheetName+'.xls')
 
 def getComment(commentHref):
     commentHtml=askUrl(commentHref)
