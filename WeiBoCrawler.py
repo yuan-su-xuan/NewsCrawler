@@ -150,7 +150,7 @@ dataList = []
 def getData(baseUrl):
     srclist = ['网', '报', '新闻', '播', '观察', '社', '在线', '观', '中国', '法', '共青', '青年', '中央', 'CCTV', '检察', '观察']
     #爬取前100页的数据
-    for i in range(0, 1):
+    for i in range(0, 100):
         url = baseUrl.replace('page=1', 'page=' + str(i + 1))
         html = askUrl(url)
         if html == None:
