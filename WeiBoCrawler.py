@@ -6,7 +6,7 @@ import xlwt
 from urllib.parse import unquote, quote
 import time
 import random
-
+import  GUI
 baseUrlList1 = [
     # 由于第一阶段认识不足以及阶段性大事件未发生，仅有几个关键词有效
     # ‘肺炎’
@@ -184,7 +184,8 @@ def getData(baseUrl):
                         data.append(comments[i])
                     if isMatch and (data not in dataList):
                         dataList.append(data)
-                        print('datalist中增加了第' + str(len(dataList)) + '条数据')
+                        s='datalist中增加了第' + str(len(dataList)) + '条数据'
+                        print(s)
                     break
 
 
@@ -199,7 +200,9 @@ def savaData(dataList, sheetName):
         data = dataList[i]
         for j in range(0, len(data)):
             wordsheet.write(lineCount, j, data[j])
-        print(sheetName + '写入了第', lineCount, '条数据')
+        s=sheetName + '写入了第', lineCount, '条数据'
+        print(s)
+
         lineCount = lineCount + 1
 
     workbook.save(sheetName+'.xls')

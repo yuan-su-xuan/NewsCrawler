@@ -3,7 +3,9 @@ import re
 
 stime=re.compile(r'starttime=[0-9]*')
 etime=re.compile(r'endtime=[0-9]*')
+#设置爬取新闻的时间段
 def setTime(starttime,endtime,baseUrlList):
+
     list=[]
     for url in baseUrlList:
         toReplace1=re.findall(stime,url)[0]
