@@ -58,8 +58,3 @@ def getText(url):
     for i in range(0, len(contents)):
         text += contents[i].text
     return text
-
-
-if __name__ == '__main__':
-    workbook.save('新闻内容.xlsx')
-    getNews('E:\python文件\MyCrawler\新冠疫情新闻.xls')

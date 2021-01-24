@@ -6,7 +6,7 @@ import xlwt
 from urllib.parse import unquote, quote
 import time
 import random
-import  GUI
+
 baseUrlList1 = [
     # 由于第一阶段认识不足以及阶段性大事件未发生，仅有几个关键词有效
     # ‘肺炎’
@@ -233,23 +233,3 @@ def getHotComments(hotUrl):
     return commentList
 
 
-if __name__ == '__main__':
-    dataList = []
-    for i in range(0, len(baseUrlList1)):
-        getData(baseUrlList1[i])
-    savaData(dataList, '第一阶段')
-    lineCount = 1
-    dataList.clear()
-    for i in range(0, len(baseUrlList2)):
-        getData(baseUrlList2[i])
-    savaData(dataList, '第二阶段')
-    lineCount = 1
-    dataList.clear()
-    for i in range(0, len(baseUrlList3)):
-        getData(baseUrlList3[i])
-    savaData(dataList, '第三阶段')
-    lineCount = 1
-    dataList.clear()
-    for i in range(0, len(baseUrlList4)):
-        getData(baseUrlList4[i])
-    savaData(dataList, '第四阶段')
