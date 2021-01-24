@@ -19,7 +19,7 @@ PIC6=picture(root)
 def counter(btn):  # 增加一个参数把button对象传入，用来更改它的文字
     global condition
     messagebox.showinfo("注意", "正在分析数据，请稍等...")
-    #startData()
+    startData()
     messagebox.showinfo("注意", "数据分析已完成！ 分析图片存于pic文件夹中!")
     label1.destroy()
     e1.destroy()
